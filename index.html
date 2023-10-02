@@ -17,8 +17,8 @@
 
         .container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex-wrap: wrap;
+            gap: 5px;
         }
 
         .board {
@@ -28,7 +28,6 @@
             display: grid;
             grid-template-columns: repeat(3, 100px);
             grid-gap: 5px;
-            padding: 20px;
         }
 
         .cell {
@@ -56,61 +55,75 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Mega Tic Tac Toe</h1>
-        <div class="board" id="board">
-            <!-- Each cell is a smaller Tic Tac Toe board -->
-            <div class="cell" data-cell></div>
-            <div class="cell" data-cell></div>
-            <div class="cell" data-cell></div>
-            <div class="cell" data-cell></div>
-            <div class="cell" data-cell></div>
-            <div class="cell" data-cell></div>
-            <div class="cell" data-cell></div>
-            <div class="cell" data-cell></div>
-            <div class="cell" data-cell></div>
-        </div>
-        <div class="message" id="message"></div>
+    <h1>Mega Tic Tac Toe</h1>
+    <div class="container" id="container">
+        <!-- Create nine small boards -->
+        <div class="board" data-board></div>
+        <div class="board" data-board></div>
+        <div class="board" data-board></div>
+        <div class="board" data-board></div>
+        <div class="board" data-board></div>
+        <div class="board" data-board></div>
+        <div class="board" data-board></div>
+        <div class="board" data-board></div>
+        <div class="board" data-board></div>
     </div>
+    <div class="message" id="message"></div>
 
     <script>
-        const board = document.getElementById('board');
-        const cells = document.querySelectorAll('[data-cell]');
+        const boards = document.querySelectorAll('[data-board]');
         const message = document.getElementById('message');
         let currentPlayer = 'X';
+        let currentBoard = null;
         let gameOver = false;
 
-        cells.forEach(cell => {
-            cell.addEventListener('click', handleCellClick);
+        boards.forEach(board => {
+            createSmallBoard(board);
+            board.addEventListener('click', () => setCurrentBoard(board));
         });
 
-        function handleCellClick(e) {
-            const cell = e.target;
+        function createSmallBoard(board) {
+            for (let i = 0; i < 9; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                cell.textContent = '';
+                board.appendChild(cell);
+                cell.addEventListener('click', () => handleCellClick(cell));
+            }
+        }
 
-            if (cell.textContent !== '' || gameOver) {
+        function setCurrentBoard(board) {
+            if (!gameOver) {
+                currentBoard = board;
+            }
+        }
+
+        function handleCellClick(cell) {
+            if (cell.textContent !== '' || gameOver || !currentBoard) {
                 return;
             }
 
             cell.textContent = currentPlayer;
             cell.style.backgroundColor = '#fff';
 
-            // Add logic for winning conditions and switch to the next small board here
+            // Implement winning conditions for the small board here
 
-            // Example: Check for a win in the current small board
-            if (checkWinner(currentPlayer)) {
-                // Handle win and update the message
-                gameOver = true;
-                message.textContent = `Player ${currentPlayer} wins the small board!`;
+            // Example: Check if the current player wins the small board
+            if (checkWinner(currentPlayer, currentBoard)) {
+                message.textContent = `Player ${currentPlayer} wins the board!`;
+                currentBoard = null; // Lock the current board
             } else {
-                // Switch to the next small board logic
-                // ...
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
             }
         }
 
-        // Implement checkWinner and other game logic for Mega Tic Tac Toe here
-
-        // You'll need additional functions to manage the large board and winning conditions.
-        // This simplified code provides the basic structure and interface for a Mega Tic Tac Toe game.
+        function checkWinner(player, board) {
+            // Implement winning conditions for the small board here
+            // You'll need to check for horizontal, vertical, and diagonal wins
+            // within the specified small board.
+            // Example: You can assign unique data attributes to each cell in the small board
+            // and use those attributes to check for a win.
+        }
     </script>
 </body>
 </html>
