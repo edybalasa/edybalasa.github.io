@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mega Tic Tac Toe</title>
+    <title>Tic Tac Toe</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -21,7 +21,7 @@
             align-items: center;
         }
 
-        .board {
+        #board {
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
@@ -53,13 +53,26 @@
             text-align: center;
             margin-top: 20px;
         }
+
+        @media (max-width: 600px) {
+            h1 {
+                order: 2;
+            }
+
+            #board {
+                order: 1;
+            }
+
+            .message {
+                order: 3;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Mega Tic Tac Toe</h1>
-        <div class="board" id="board">
-            <!-- Each cell is a smaller Tic Tac Toe board -->
+        <h1>Tic Tac Toe</h1>
+        <div id="board">
             <div class="cell" data-cell></div>
             <div class="cell" data-cell></div>
             <div class="cell" data-cell></div>
@@ -94,23 +107,37 @@
             cell.textContent = currentPlayer;
             cell.style.backgroundColor = '#fff';
 
-            // Add logic for winning conditions and switch to the next small board here
-
-            // Example: Check for a win in the current small board
             if (checkWinner(currentPlayer)) {
-                // Handle win and update the message
                 gameOver = true;
-                message.textContent = `Player ${currentPlayer} wins the small board!`;
+                message.textContent = `Player ${currentPlayer} wins!`;
+            } else if (isBoardFull() && !checkWinner('X') && !checkWinner('O')) {
+                gameOver = true;
+                message.textContent = 'It\'s a draw!';
             } else {
-                // Switch to the next small board logic
-                // ...
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
             }
         }
 
-        // Implement checkWinner and other game logic for Mega Tic Tac Toe here
+        function checkWinner(player) {
+            const winningCombos = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6]
+            ];
 
-        // You'll need additional functions to manage the large board and winning conditions.
-        // This simplified code provides the basic structure and interface for a Mega Tic Tac Toe game.
+            return winningCombos.some(combination => {
+                return combination.every(index => cells[index].textContent === player);
+            });
+        }
+
+        function isBoardFull() {
+            return [...cells].every(cell => cell.textContent !== '');
+        }
     </script>
 </body>
 </html>
