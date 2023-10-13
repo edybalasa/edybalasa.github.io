@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .chessboard {
+            display: grid;
+            grid-template-columns: repeat(8, 50px);
+            grid-template-rows: repeat(8, 50px);
+            gap: 2px;
+        }
+
+        .square {
+            width: 50px;
+            height: 50px;
+            background-color: #eee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .white {
+            background-color: #fff;
+        }
+
+        .piece {
+            font-size: 32px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chessboard">
+        <!-- Rank 8 -->
+        <div class="square white"><span class="piece">♖</span></div>
+        <div class="square"><span class="piece">♘</span></div>
+        <div class="square white"><span class="piece">♗</span></div>
+        <div class="square"><span class="piece">♕</span></div>
+        <div class="square white"><span class="piece">♔</span></div>
+        <div class="square"><span class="piece">♗</span></div>
+        <div class="square white"><span class="piece">♘</span></div>
+        <div class="square"><span class="piece">♖</span></div>
+
+        <!-- Rank 7 -->
+        <div class="square"><span class="piece">♙</span></div>
+        <div class="square white"><span class="piece">♙</span></div>
+        <div class="square"><span class="piece">♙</span></div>
+        <div class="square white"><span class="piece">♙</span></div>
+        <div class="square"><span class="piece">♙</span></div>
+        <div class="square white"><span class="piece">♙</span></div>
+        <div class="square"><span class="piece">♙</span></div>
+        <div class="square white"><span class="piece">♙</span></div>
+
+        <!-- Rank 6 (Empty Squares) -->
+
+        <!-- Rank 5 (Empty Squares) -->
+
+        <!-- Rank 4 (Empty Squares) -->
+
+        <!-- Rank 3 (Empty Squares) -->
+
+        <!-- Rank 2 -->
+        <div class="square"><span class="piece">♖</span></div>
+        <div class="square white"><span class="piece">♘</span></div>
+        <div class="square"><span class="piece">♗</span></div>
+        <div class="square white"><span class="piece">♕</span></div>
+        <div class="square"><span class="piece">♔</span></div>
+        <div class="square white"><span class="piece">♗</span></div>
+        <div class="square"><span class="piece">♘</span></div>
+        <div class="square white"><span class="piece">♖</span></div>
+
+        <!-- Rank 1 -->
+        <div class="square white"><span class="piece">♖</span></div>
+        <div class="square"><span class="piece">♘</span></div>
+        <div class="square white"><span class="piece">♗</span></div>
+        <div class="square"><span class="piece">♕</span></div>
+        <div class="square white"><span class "piece">♔</span></div>
+        <div class="square"><span class="piece">♗</span></div>
+        <div class="square white"><span class="piece">♘</span></div>
+        <div class="square"><span class="piece">♖</span></div>
+    </div>
+</body>
+</html>
