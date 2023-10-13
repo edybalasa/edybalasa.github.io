@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>2D F1 Racing Game</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+
+        // Define the player's car
+        const playerCar = {
+            x: 400,
+            y: 500,
+            width: 40,
+            height: 80,
+            speed: 5,
+        };
+
+        // Game loop
+        function gameLoop() {
+            requestAnimationFrame(gameLoop);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Move the player's car
+            if (keys.ArrowLeft && playerCar.x > 0) {
+                playerCar.x -= playerCar.speed;
+            }
+            if (keys.ArrowRight && playerCar.x + playerCar.width < canvas.width) {
+                playerCar.x += playerCar.speed;
+            }
+
+            // Draw the player's car
+            ctx.fillStyle = "blue";
+            ctx.fillRect(playerCar.x, playerCar.y, playerCar.width, playerCar.height);
+        }
+
+        // Keyboard input
+        const keys = {};
+        window.addEventListener("keydown", function (e) {
+            keys[e.key] = true;
+        });
+        window.addEventListener("keyup", function (e) {
+            keys[e.key] = false;
+        });
+
+        gameLoop();
+    </script>
+</body>
+</html>
