@@ -1,60 +1,63 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>2D F1 Racing Game</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-        }
-        canvas {
-            display: block;
-        }
-    </style>
+<title>Car Game</title>
+<style>
+ body {
+    margin: 0;
+    overflow: hidden;
+ }
+ .car {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 150px;
+    background-color: blue;
+    border-radius: 10px;
+ }
+ .road {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    background-color: black;
+    bottom: 0;
+ }
+</style>
 </head>
 <body>
-    <canvas id="gameCanvas" width="800" height="600"></canvas>
-    <script>
-        const canvas = document.getElementById("gameCanvas");
-        const ctx = canvas.getContext("2d");
+ <div class="car"></div>
+ <div class="road"></div>
+ <script>
+    var car = document.querySelector('.car');
+    var carSpeed = 10;
+    var road = document.querySelector('.road');
+    var roadSpeed = 10;
+    var direction = 'left';
 
-        // Define the player's car
-        const playerCar = {
-            x: 400,
-            y: 500,
-            width: 40,
-            height: 80,
-            speed: 5,
-        };
+    function moveCar() {
+      if (direction === 'left') {
+        car.style.left = car.offsetLeft - carSpeed + 'px';
+      } else {
+        car.style.left = car.offsetLeft + carSpeed + 'px';
+      }
+      if (car.offsetLeft <= 0 || car.offsetLeft >= window.innerWidth - car.offsetWidth) {
+        direction = direction === 'left' ? 'right' : 'left';
+      }
+      setTimeout(moveCar, 50);
+    }
 
-        // Game loop
-        function gameLoop() {
-            requestAnimationFrame(gameLoop);
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+    function moveRoad() {
+      road.style.bottom = road.offsetBottom - roadSpeed + 'px';
+      if (road.offsetBottom <= 0) {
+        road.style.bottom = '0px';
+      }
+      setTimeout(moveRoad, 50);
+    }
 
-            // Move the player's car
-            if (keys.ArrowLeft && playerCar.x > 0) {
-                playerCar.x -= playerCar.speed;
-            }
-            if (keys.ArrowRight && playerCar.x + playerCar.width < canvas.width) {
-                playerCar.x += playerCar.speed;
-            }
-
-            // Draw the player's car
-            ctx.fillStyle = "blue";
-            ctx.fillRect(playerCar.x, playerCar.y, playerCar.width, playerCar.height);
-        }
-
-        // Keyboard input
-        const keys = {};
-        window.addEventListener("keydown", function (e) {
-            keys[e.key] = true;
-        });
-        window.addEventListener("keyup", function (e) {
-            keys[e.key] = false;
-        });
-
-        gameLoop();
-    </script>
+    moveCar();
+    moveRoad();
+ </script>
 </body>
 </html>
